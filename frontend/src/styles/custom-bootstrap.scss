@@ -1,0 +1,44 @@
+// App brand theme.
+// Overriding Bootstrap's Sass variables (not just CSS custom properties) so that
+// derived shades - button hover/active states, subtle badges, focus rings, dark-mode
+// text-emphasis colors, etc. - are all computed from the brand color instead of
+// Bootstrap's stock blue.
+@use "sass:color";
+@use "sass:math";
+
+$primary: #c13733;
+$secondary: #e3b44a;
+
+$border-radius: 0.5rem;
+$border-radius-sm: 0.375rem;
+$border-radius-lg: 0.75rem;
+$border-radius-xl: 1rem;
+
+$font-family-sans-serif:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+// Modern Sass keeps fractional channels from Bootstrap's shade/tint mixing and
+// prints them as percentages, e.g. rgb(30.27%, 8.63%, 8%). Bootstrap inlines these
+// colors into SVG data URIs (accordion icons) without escaping the "%", which
+// makes the URI invalid and fails the production build's SVG minifier. Rounding to
+// whole channels keeps them serializable.
+@import "bootstrap/scss/functions";
+
+@function to-integer-rgb($c) {
+    @return rgb(
+        math.round(color.channel($c, "red", $space: rgb)),
+        math.round(color.channel($c, "green", $space: rgb)),
+        math.round(color.channel($c, "blue", $space: rgb))
+    );
+}
+
+$primary-text-emphasis: to-integer-rgb(shade-color($primary, 60%));
+$primary-text-emphasis-dark: to-integer-rgb(tint-color($primary, 40%));
+
+@import "bootstrap/scss/bootstrap";

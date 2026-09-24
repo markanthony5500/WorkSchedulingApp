@@ -1,0 +1,112 @@
+/* Most styling genreated by claude code*/
+/* App-wide layout helpers and FullCalendar dark theming.
+   Loaded after the compiled Bootstrap build so these rules can override it. */
+
+body {
+    min-height: 100vh;
+}
+
+/* Sidebar toggle sits fixed top-left on every screen; pages add page-top
+   padding (see .page-container) so headings don't sit under it. */
+.sidebar-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1030;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-container {
+    padding-top: 4.5rem;
+    padding-bottom: 2rem;
+}
+
+/* Sidebar nav - large, bold, pill-shaped "bubble" links. */
+.sidebar-nav .nav-link {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.65rem 1.35rem;
+    border-radius: 50rem;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.sidebar-nav .nav-link:not(.active):hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+/* FullCalendar - retheme to match the dark Bootstrap surface + brand red
+   instead of FullCalendar's default light theme. */
+[data-bs-theme="dark"] .fc {
+    --fc-page-bg-color: var(--bs-body-bg);
+    --fc-neutral-bg-color: var(--bs-tertiary-bg);
+    --fc-neutral-text-color: var(--bs-body-color);
+    --fc-border-color: var(--bs-border-color);
+
+    --fc-button-text-color: #fff;
+    --fc-button-bg-color: var(--bs-primary);
+    --fc-button-border-color: var(--bs-primary);
+    --fc-button-hover-bg-color: color-mix(
+        in srgb,
+        var(--bs-primary) 85%,
+        black
+    );
+    --fc-button-hover-border-color: color-mix(
+        in srgb,
+        var(--bs-primary) 85%,
+        black
+    );
+    --fc-button-active-bg-color: color-mix(
+        in srgb,
+        var(--bs-primary) 70%,
+        black
+    );
+    --fc-button-active-border-color: color-mix(
+        in srgb,
+        var(--bs-primary) 70%,
+        black
+    );
+
+    --fc-event-bg-color: var(--bs-primary);
+    --fc-event-border-color: var(--bs-primary);
+    --fc-event-text-color: #fff;
+
+    --fc-today-bg-color: color-mix(in srgb, var(--bs-primary) 15%, transparent);
+    --fc-highlight-color: color-mix(
+        in srgb,
+        var(--bs-primary) 20%,
+        transparent
+    );
+    --fc-now-indicator-color: var(--bs-primary);
+
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .fc .fc-list-event:hover td {
+    background-color: var(--bs-tertiary-bg);
+}
+
+/* Let event titles wrap instead of being cut off with an ellipsis. Titles use
+   an explicit "\n" to break after the employee name (see Availability.js /
+   GenerateSchedule.js), and pre-line respects that while still wrapping any
+   overly long detail text on the second line. */
+.fc .fc-daygrid-event {
+    white-space: normal;
+    align-items: flex-start;
+    padding: 2px 4px;
+}
+
+.fc .fc-event-title {
+    white-space: pre-line;
+    overflow: visible;
+    text-overflow: unset;
+    line-height: 1.25;
+}
+
+.fc .fc-event-title::first-line {
+    font-weight: 700;
+}
