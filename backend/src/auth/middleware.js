@@ -8,7 +8,7 @@ Ex:
   });
 */
 
-export default async function requireAuth(req, res, next) {
+export async function requireAuth(req, res, next) {
     try {
         // Does token exist?
         const token = req.cookies.session;
@@ -38,6 +38,7 @@ export default async function requireAuth(req, res, next) {
         // Store user info in request object for use in route handler
         req.user = {
             id: currentSession.userId,
+            position: currentSession.position
         };
 
         // next() changes controll to the next function in the request chain
@@ -48,13 +49,24 @@ export default async function requireAuth(req, res, next) {
     }
 }
 
+export function requireManager(req, res, next){
+    // Is this user a manager?
+    if(req.user.position !== "Manager"){
+           return res.status(403).json({error: "User is not a manager"});
+    }
+
+    // If manager, continue
+    next()
+}
+
 async function getSessionByToken(token) {
     const [rows] = await pool.query(
         `
 		SELECT
 			s.id as sessionId,
 			s.expiresAt,
-			u.id AS userId
+			u.id AS userId,
+			u.position
 		FROM Sessions s
 		JOIN Users u ON u.id = s.userId
 		WHERE s.token = ?

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import requireAuth from "../auth/requireAuth.js";
+import { requireAuth } from "../auth/middleware.js";
 import {
     requestOff,
     setAvailability,
