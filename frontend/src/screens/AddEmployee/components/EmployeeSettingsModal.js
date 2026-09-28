@@ -32,7 +32,7 @@ export default function EmployeeSettingsModal({
         shiftUnavailable,
         availabilityReason,
     ) {
-        await apiRequest("/shifts/setAvailability", "POST", {
+        await apiRequest("/availability/setAvailability", "POST", {
             userId: employee.id,
             dayOfWeek: dayUnavailable,
             shift: shiftUnavailable,

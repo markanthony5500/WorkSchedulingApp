@@ -7,6 +7,7 @@ import { addMockData, clearExistingMockData } from "./db/mockData.js";
 
 import authRoutes from "./auth/routes.js";
 import shiftRoutes from "./shifts/routes.js";
+import availabilityRoutes from "./availability/routes.js";
 import scheduleRoutes from "./schedule/routes.js";
 import employeeRoutes from "./employees/routes.js";
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 app.use("/shifts", shiftRoutes);
+app.use("/availability", availabilityRoutes);
 app.use("/scheduleGeneration", scheduleRoutes);
 app.use("/employees", employeeRoutes);
 

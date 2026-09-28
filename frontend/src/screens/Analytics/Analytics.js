@@ -17,7 +17,7 @@ export default function Analytics() {
         setLoading(true);
         try {
             const [employeeData, shiftTypeData] = await Promise.all([
-                apiRequest("/shifts/getEmployeeAvailabilitySummary"),
+                apiRequest("/availability/getEmployeeAvailabilitySummary"),
                 apiRequest("/shifts/getShiftTypes"),
             ]);
             setEmployees(employeeData);

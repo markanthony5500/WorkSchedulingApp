@@ -53,7 +53,7 @@ export default function Availability() {
 
             await Promise.all(
                 selectedShiftTypes.map((shiftType) =>
-                    apiRequest("/shifts/requestOff", "POST", {
+                    apiRequest("/availability/requestOff", "POST", {
                         date: selectedDate,
                         startTime: shiftType.startTime,
                         endTime: shiftType.endTime,
@@ -131,7 +131,7 @@ export default function Availability() {
     useEffect(() => {
         async function fetchUnavailableDates() {
             try {
-                const data = await apiRequest("/shifts/getUnavailableDates");
+                const data = await apiRequest("/availability/getUnavailableDates");
                 setUnavailableDates(data.weeklyAvailability);
                 setRequestOffs(data.specificDates);
             } catch (e) {
