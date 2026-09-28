@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { requireAuth } from "../auth/middleware.js";
+import { requireAuth, requireManager } from "../auth/middleware.js";
 import {
     getEmployees,
     createEmployee,
@@ -9,9 +9,12 @@ import {
 
 const router = Router();
 
-router.get("/getEmployees", requireAuth, getEmployees);
-router.post("/createEmployee", requireAuth, createEmployee);
-router.delete("/deleteEmployee/:id", requireAuth, deleteEmployee);
-router.put("/updateEmployee/:id", requireAuth, updateEmployee);
+// Every employee route is manager only 
+router.use(requireAuth, requireManager);
+
+router.get("/getEmployees", getEmployees);
+router.post("/createEmployee", createEmployee);
+router.delete("/deleteEmployee/:id", deleteEmployee);
+router.put("/updateEmployee/:id", updateEmployee);
 
 export default router;
