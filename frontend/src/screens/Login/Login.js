@@ -6,11 +6,14 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { apiRequest } from "../../api/apiHelper.js";
+import { useAuth } from "../../GlobalComponents/RouteGuards/AuthContext.js";
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+
+    const {setUser} = useAuth();
 
     async function handleDevLogin(e) {
         e.preventDefault();
@@ -34,7 +37,8 @@ export default function Login() {
                 password,
             });
             console.log("Login successful:", data);
-            // Navigate to home page
+            // Set current user and go to home page
+            setUser(await apiRequest("/auth/me"));
             navigate("/");
         } catch (e) {
             console.error("Error during login:", e);

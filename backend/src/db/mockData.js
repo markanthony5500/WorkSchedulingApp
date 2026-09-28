@@ -7,10 +7,10 @@ const FULL_DAY_END = "23:59:59";
 
 const mockUsers = [
     {
-        firstName: "Alex",
+        firstName: "Manager",
         lastName: "",
-        username: "alex",
-        position: "Shift Leader",
+        username: "manager",
+        position: "Manager",
         maxHoursPerWeek: 40,
     },
     {

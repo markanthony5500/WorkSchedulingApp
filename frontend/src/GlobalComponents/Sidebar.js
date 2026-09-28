@@ -6,7 +6,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
 import { List } from "react-bootstrap-icons";
 import { apiRequest } from "../api/apiHelper.js";
+import { useAuth } from "./RouteGuards/AuthContext.js";
 export default function Sidebar() {
+    // Current user info
+    const {user, setUser} = useAuth();
+
     // State to control sidebar visibility
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
@@ -20,6 +24,8 @@ export default function Sidebar() {
         } catch (e) {
             console.error("Error during logout:", e);
         }
+
+        setUser(null);
         navigate("/login");
     }
 
@@ -46,21 +52,20 @@ export default function Sidebar() {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/availability">Availability</Nav.Link>
                         {/* Manager Only options */}
-                        <Nav.Link href="/generateSchedule">
-                            Generate Schedule
-                        </Nav.Link>
-                        <Nav.Link href="/manageRequests">
-                            Manage Requests
-                        </Nav.Link>
-                        <Nav.Link href="/analytics">Analytics Tool</Nav.Link>
-                        <Nav.Link href="/addEmployee">Add Employee</Nav.Link>
+                        {
+                            user?.position === "Manager" && (
+                                <>
+                                    <Nav.Link href="/generateSchedule">Generate Schedule</Nav.Link>
+                                    <Nav.Link href="/manageRequests">Manage Requests</Nav.Link>
+                                    <Nav.Link href="/analytics">Analytics Tool</Nav.Link>
+                                    <Nav.Link href="/addEmployee">Add Employee</Nav.Link>
+                                </>
+                            )
+                        }
+
                     </Nav>
 
-                    <Button
-                        variant="danger"
-                        className="mt-auto"
-                        onClick={handleLogout}
-                    >
+                    <Button variant="danger" className="mt-auto" onClick={handleLogout}>
                         Logout
                     </Button>
                 </Offcanvas.Body>
