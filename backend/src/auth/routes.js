@@ -5,7 +5,7 @@ import { loginUser, logoutUser, loginDev } from "./controller.js";
 const router = Router();
 
 router.get("/me", requireAuth, (req, res) => {
-    res.json({ authenticated: true, userId: req.user.id });
+    res.json({ authenticated: true, userId: req.user.id, position: req.user.position });
 });
 
 router.post("/login", loginUser);

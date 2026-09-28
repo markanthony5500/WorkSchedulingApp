@@ -11,24 +11,27 @@ import AddEmployee from "./screens/AddEmployee/AddEmployee";
 import Login from "./screens/Login/Login";
 import GenerateSchedule from "./screens/GenerateSchedule/GenerateSchedule";
 import Analytics from "./screens/Analytics/Analytics";
+import AuthProvider  from "./GlobalComponents/RouteGuards/AuthContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/availability" element={<Availability />} />
-                <Route path="/requestOff" element={<Availability />} />
-                <Route path="/switchShift" element={<Availability />} />
-                <Route path="/addEmployee" element={<AddEmployee />} />
-                <Route path="/login" element={<Login />} />
-                <Route
-                    path="/generateSchedule"
-                    element={<GenerateSchedule />}
-                />
-                <Route path="/analytics" element={<Analytics />} />
-            </Routes>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/availability" element={<Availability />} />
+                    <Route path="/requestOff" element={<Availability />} />
+                    <Route path="/switchShift" element={<Availability />} />
+                    <Route path="/addEmployee" element={<AddEmployee />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/generateSchedule"
+                        element={<GenerateSchedule />}
+                    />
+                    <Route path="/analytics" element={<Analytics />} />
+                </Routes>
+            </AuthProvider>
         </BrowserRouter>
     </React.StrictMode>,
 );
